@@ -8,7 +8,7 @@ This project provides OpenTelemetry instrumentation for AMD GPUs on Linux. It re
 
 I built this because GPU metrics are often left out of observability setups or require vendor-specific tooling. With this library you can get GPU telemetry into whatever backend you're already using with OpenTelemetry.
 
-This is not an official OpenTelemetry project. Just a community contribution.
+This is **NOT** an official OpenTelemetry project. Just a community contribution.
 
 ## Metrics
 
@@ -58,4 +58,4 @@ cargo run --example basic
 
 ## License
 
-Apache-2.0
+[Apache-2.0](/LICENSE)
