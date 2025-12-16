@@ -1,1 +1,26 @@
+# Build
 /target
+Cargo.lock
+
+# macOS
+.DS_Store
+
+# Windows
+Thumbs.db
+Desktop.ini
+
+# VS Code
+.vscode/
+
+# JetBrains (RustRover, IntelliJ, etc.)
+.idea/
+*.iml
+
+# Vim/Neovim
+*.swp
+*.swo
+*~
+
+# Environment
+.env
+.env.local
