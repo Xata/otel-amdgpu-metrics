@@ -1,6 +1,6 @@
 use std::fs;
-use std::path::{Path, PathBuf};
 use std::io;
+use std::path::{Path, PathBuf};
 
 use opentelemetry::metrics::Meter;
 
@@ -58,11 +58,9 @@ fn detect_gpus_at_path(sysfs_drm_path: &Path) -> Vec<AmdGpu> {
 
 fn is_amdgpu(card_path: &Path) -> bool {
     let driver_link = card_path.join("device/driver");
-    
+
     match fs::read_link(&driver_link) {
-        Ok(target) => target
-            .to_string_lossy()
-            .ends_with("amdgpu"),
+        Ok(target) => target.to_string_lossy().ends_with("amdgpu"),
         Err(_) => false,
     }
 }
@@ -78,26 +76,26 @@ impl std::fmt::Display for InitError {
 impl std::error::Error for InitError {}
 
 /// Initialize AMD GPU metrics collection
-/// 
+///
 /// Detects AMD GPUs and registers metrics with the provided meter.
 /// Returns the list of detected GPUs.
-/// 
+///
 /// # Example
 /// ```ignore
 /// use opentelemetry::global;
 /// use otel_amdgpu_metrics::init;
-/// 
+///
 /// let meter = global::meter("my-app");
 /// let gpus = init(&meter)?;
 /// println!("Monitoring {} GPU(s)", gpus.len());
 /// ```
 pub fn init(meter: &Meter) -> Result<Vec<AmdGpu>, InitError> {
     let gpus = detect_gpus();
-    
+
     if gpus.is_empty() {
         return Err(InitError::NoGpusFound);
     }
-    
+
     register_gpu_metrics(meter, &gpus);
     Ok(gpus)
 }
@@ -133,7 +131,7 @@ impl AmdGpu {
             .map_err(|e| io::Error::new(io::ErrorKind::InvalidData, e))
     }
 
-        /// Read GPU temperature in millidegrees Celsius
+    /// Read GPU temperature in millidegrees Celsius
     pub fn read_temperature(&self) -> io::Result<u64> {
         // hwmon path can vary, need to find it
         let hwmon_path = self.find_hwmon()?;
@@ -159,14 +157,14 @@ impl AmdGpu {
     /// Find the hwmon directory for this GPU
     fn find_hwmon(&self) -> io::Result<PathBuf> {
         let hwmon_dir = self.sysfs_path.join("device/hwmon");
-        
+
         for entry in fs::read_dir(&hwmon_dir)? {
             let entry = entry?;
             if entry.file_name().to_string_lossy().starts_with("hwmon") {
                 return Ok(entry.path());
             }
         }
-        
+
         Err(io::Error::new(
             io::ErrorKind::NotFound,
             "hwmon directory not found",

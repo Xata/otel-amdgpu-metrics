@@ -1,6 +1,6 @@
 use crate::AmdGpu;
-use opentelemetry::metrics::Meter;
 use opentelemetry::KeyValue;
+use opentelemetry::metrics::Meter;
 
 /// Registers GPU metrics with the provided OpenTelemetry meter
 pub fn register_gpu_metrics(meter: &Meter, gpus: &[AmdGpu]) {
