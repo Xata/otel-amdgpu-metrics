@@ -45,4 +45,21 @@ pub fn register_gpu_metrics(meter: &Meter, gpus: &[AmdGpu]) {
             }
         })
         .build();
+
+    let gpus_power = gpus.to_vec();
+    let _power = meter
+        .u64_observable_gauge("hw.gpu.power")
+        .with_description("GPU power consumption")
+        .with_unit("W")
+        .with_callback(move |observer| {
+            for gpu in &gpus_power {
+                if let Ok(power) = gpu.read_power() {
+                    observer.observe(
+                        power / 1_000_000,
+                        &[KeyValue::new("hw.id", gpu.card_id.clone())],
+                    );
+                }
+            }
+        })
+        .build();
 }

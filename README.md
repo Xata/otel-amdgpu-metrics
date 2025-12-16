@@ -19,6 +19,7 @@ The following metrics are collected for each detected AMD GPU:
 | `hw.gpu.utilization` | GPU core utilization | % |
 | `hw.gpu.memory.used` | VRAM currently in use | bytes |
 | `hw.gpu.temperature` | GPU temperature | Celsius |
+| `hw.gpu.power` | GPU power consumption | watts |
 
 Each metric includes an `hw.id` attribute with the card identifier (e.g., `card0`, `card1`).
 

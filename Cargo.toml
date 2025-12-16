@@ -2,7 +2,7 @@
 name = "otel-amdgpu-metrics"
 version = "0.1.0"
 edition = "2024"
-description = "AMD GPU metrics instrumentation for OpenTelemetry"
+description = "OpenTelemetry instrumentation for AMD GPUs on Linux via sysfs"
 license = "Apache-2.0"
 repository = "https://github.com/Xata/otel-amdgpu-metrics"
 keywords = ["opentelemetry", "metrics", "gpu", "amd", "monitoring"]
