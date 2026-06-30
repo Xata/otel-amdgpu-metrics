@@ -10,7 +10,7 @@ categories = ["development-tools::profiling"]
 
 [dependencies]
 opentelemetry = "0.31"
-opentelemetry_sdk = "0.31"
+opentelemetry_sdk = "0.32"
 
 [dev-dependencies]
 opentelemetry-stdout = { version = "0.31", features = ["metrics"] }
